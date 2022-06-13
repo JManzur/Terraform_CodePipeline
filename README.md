@@ -9,29 +9,20 @@
 - CodeBuil Projects.
 - CodePipeline Projects.
 
-GitHub Emojis:
-
-> :bulb:
-
-> :warning:
-
-> :information_source:
-
 ### Deployment diagram:
 
-![App Screenshot](images/placeholder.png)
+![App Screenshot](images/Terraform-CodePipeline.drawio.png)
 
 ## Tested with: 
 
 | Environment | Application | Version  |
 | ----------------- |-----------|---------|
-| WSL2 Ubuntu 20.04 | Terraform | v1.2.1  |
+| WSL2 Ubuntu 20.04 | Terraform | v1.2.2  |
 
 ## Initialization How-To:
-Located in the root directory, make an "aws configure" to log into the aws account, and a "terraform init" to download the necessary modules and start the backend.
+Located in the root directory, make the necessary changes in the variables.tf file and run "terraform init" to download the necessary modules and start the backend.
 
 ```bash
-aws configure
 terraform init
 ```
 
