@@ -28,6 +28,15 @@ terraform init
 
 ## Deployment How-To:
 
+Create a .tfvar with a content like the following:
+
+```bash
+aws_profile       = "default"
+code_connection   = "arn:aws:codestar-connections:REGION:ACCOUNT_ID:connection/XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+repository_id     = "USER_NAME/REPO_NAME"
+repository_branch = "main"
+terraform_version = "1.2.3"
+```` 
 Located in the root directory, make the necessary changes in the variables.tf file and run the manifests:
 
 ```bash

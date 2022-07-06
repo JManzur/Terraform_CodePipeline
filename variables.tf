@@ -25,7 +25,7 @@ variable "repository_branch" {
 
 variable "terraform_version" {
   type    = string
-  default = "1.2.2"
+  default = ""
 }
 
 variable "compute_type" {
@@ -61,3 +61,18 @@ variable "name-prefix" {
   default = "terraform"
 }
 
+# IAM Roles Name:
+variable "codepipeline_role" {
+  type    = string
+  default = "terraform-codepipeline-role"
+}
+
+variable "codebuild_role" {
+  type    = string
+  default = "terraform-codebuild-role"
+}
+
+variable "terrraform_apply_role" {
+  type    = string
+  default = "terraform-apply-role"
+}
