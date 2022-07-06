@@ -269,9 +269,7 @@ resource "aws_iam_role_policy_attachment" "codepipeline_attach" {
   policy_arn = aws_iam_policy.codepipeline_policy.arn
 }
 
-#################
-# TO-DO: Fix Circular dependency whit bash: https://docs.aws.amazon.com/cli/latest/reference/iam/update-assume-role-policy.html
-#################
+/* Fixing Circular dependency: */
 
 resource "null_resource" "update_policy" {
   triggers = { terraform_apply_role_arn = "${aws_iam_role.codebuild_role.arn}" }
