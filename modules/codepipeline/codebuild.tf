@@ -38,7 +38,7 @@ resource "aws_codebuild_project" "validate" {
     type      = "CODEPIPELINE"
   }
 
-  tags = { Name = "${var.name-prefix}-validation-step" }
+  tags = { Name = "${var.name_prefix}-validation-step" }
 }
 
 /* Terraform Plan Project */
@@ -63,7 +63,7 @@ resource "aws_codebuild_project" "plan" {
     type      = "CODEPIPELINE"
   }
 
-  tags = { Name = "${var.name-prefix}-plan-step" }
+  tags = { Name = "${var.name_prefix}-plan-step" }
 }
 
 /* Terraform Apply Project */
@@ -88,5 +88,5 @@ resource "aws_codebuild_project" "apply" {
     type      = "CODEPIPELINE"
   }
 
-  tags = { Name = "${var.name-prefix}-apply-step" }
+  tags = { Name = "${var.name_prefix}-apply-step" }
 }

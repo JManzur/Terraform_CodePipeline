@@ -17,5 +17,3 @@ provider "aws" {
     tags = var.project-tags
   }
 }
-
-data "aws_caller_identity" "current" {}

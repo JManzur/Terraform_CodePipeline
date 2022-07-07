@@ -49,14 +49,14 @@ variable "compute_type" {
 variable "project-tags" {
   type = map(string)
   default = {
-    service     = "Terraform-CodePipeline",
-    environment = "POC"
-    DeployedBy  = "example@mail.com"
+    Service   = "Terraform-CodePipeline",
+    CreatedBy = "JManzur"
+    Env       = "POC"
   }
 }
 
-#Use: tags = { Name = "${var.name-prefix}-lambda" }
-variable "name-prefix" {
+#Use: tags = { Name = "${var.name_prefix}-lambda" }
+variable "name_prefix" {
   type    = string
   default = "terraform"
 }

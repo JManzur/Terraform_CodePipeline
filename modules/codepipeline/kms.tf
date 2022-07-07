@@ -12,7 +12,7 @@ resource "aws_kms_key" "artifact" {
             "Sid": "AllowKeyAdministration",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+                "AWS": "arn:aws:iam::${var.codepipeline_account_id}:root"
             },
             "Action": "kms:*",
             "Resource": "*"
@@ -21,11 +21,11 @@ resource "aws_kms_key" "artifact" {
 }
 EOF
 
-  tags = { Name = "${var.name-prefix}-artifact-key" }
+  tags = { Name = "${var.name_prefix}-artifact-key" }
 }
 
 #Source Key Alias
 resource "aws_kms_alias" "artifact" {
-  name          = lower("alias/${var.name-prefix}-artifact-key")
+  name          = lower("alias/${var.name_prefix}-artifact-key")
   target_key_id = aws_kms_key.artifact.key_id
 }

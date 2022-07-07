@@ -1,8 +1,8 @@
 # Create the Bucket
 resource "aws_s3_bucket" "artifact" {
-  bucket = lower("${var.name-prefix}-artifact-s3")
+  bucket = lower("${var.name_prefix}-artifact-s3")
 
-  tags = { Name = "${var.name-prefix}-artifact-s3" }
+  tags = { Name = "${var.name_prefix}-artifact-s3" }
 }
 
 # Make the Bucket private

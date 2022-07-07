@@ -24,6 +24,22 @@ resource "aws_iam_role" "terraform_apply_role" {
   tags                = { Name = "${var.terrraform_apply_role}" }
 }
 
+/* Fixing Circular dependency: */
+
+resource "null_resource" "update_policy" {
+  triggers = { terraform_apply_role_arn = "${aws_iam_role.codebuild_role.arn}" }
+
+  provisioner "local-exec" {
+    command     = "${coalesce("${path.module}/scripts/update-assume-role-policy.sh")} ${var.terrraform_apply_role} ${aws_iam_role.codebuild_role.arn} ${var.aws_profile}"
+    interpreter = ["bash", "-c"]
+  }
+
+  depends_on = [
+    aws_iam_role.terraform_apply_role,
+    aws_iam_role.codebuild_role
+  ]
+}
+
 /*
 Role: Terraform CodeBuild
 Description: Used by the CodeBuild Project
@@ -120,7 +136,6 @@ data "aws_iam_policy_document" "codebuild_assume_role_policy" {
       type = "AWS"
       identifiers = [
         "${aws_iam_role.terraform_apply_role.arn}"
-        #"arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${lower("${var.name-prefix}-apply-role")}"
       ]
     }
     actions = ["sts:AssumeRole"]
@@ -128,11 +143,11 @@ data "aws_iam_policy_document" "codebuild_assume_role_policy" {
 }
 
 resource "aws_iam_policy" "codebuild_policy" {
-  name        = lower("${var.name-prefix}-codebuild-policy")
+  name        = lower("${var.name_prefix}-codebuild-policy")
   path        = "/"
   description = "CodePipeline Policy"
   policy      = data.aws_iam_policy_document.buil_policy_source.json
-  tags        = { Name = "${var.name-prefix}-codebuild-policy" }
+  tags        = { Name = "${var.name_prefix}-codebuild-policy" }
 }
 
 resource "aws_iam_role" "codebuild_role" {
@@ -251,11 +266,11 @@ data "aws_iam_policy_document" "codepipeline_assume_role_policy" {
 }
 
 resource "aws_iam_policy" "codepipeline_policy" {
-  name        = lower("${var.name-prefix}-codepipeline-policy")
+  name        = lower("${var.name_prefix}-codepipeline-policy")
   path        = "/"
   description = "CodePipeline Policy"
   policy      = data.aws_iam_policy_document.codepipeline_policy_source.json
-  tags        = { Name = "${var.name-prefix}-codepipeline-policy" }
+  tags        = { Name = "${var.name_prefix}-codepipeline-policy" }
 }
 
 resource "aws_iam_role" "codepipeline_role" {
@@ -267,20 +282,4 @@ resource "aws_iam_role" "codepipeline_role" {
 resource "aws_iam_role_policy_attachment" "codepipeline_attach" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = aws_iam_policy.codepipeline_policy.arn
-}
-
-/* Fixing Circular dependency: */
-
-resource "null_resource" "update_policy" {
-  triggers = { terraform_apply_role_arn = "${aws_iam_role.codebuild_role.arn}" }
-
-  provisioner "local-exec" {
-    command     = "${coalesce("${path.module}/scripts/update-assume-role-policy.sh")} ${var.terrraform_apply_role} ${aws_iam_role.codebuild_role.arn} ${var.aws_profile}"
-    interpreter = ["bash", "-c"]
-  }
-
-  depends_on = [
-    aws_iam_role.terraform_apply_role,
-    aws_iam_role.codebuild_role
-  ]
 }
