@@ -45,6 +45,18 @@ cleaning () {
 	rm New_Role_Trust_Policy.json
 }
 
+if [ $# -eq 0 ]
+then
+	echo "[ERROR] Parameter are needed. Run '$(basename $0) -h' for help"
+	exit 1
+fi
+if [ $# -eq 1 ] && [ ${1} = "-h" ]
+then
+	echo "[INFO] Usage: $(basename $0) {ROLE_NAME} {CODEBUILD_ROLE_ARN} {AWS_PROFILE}"
+    echo ""
+	echo " - Example 01: $(basename $0) terraform-apply-role arn:aws:iam::0123456789010:role/terraform-codebuild-role default"
+	exit 0
+fi
 if [ "$AWS_PROFILE" == "default" ]
 then
     default_profile

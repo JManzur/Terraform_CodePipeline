@@ -59,7 +59,7 @@ resource "aws_codebuild_project" "plan" {
   }
 
   source {
-    buildspec = data.local_file.terraform_validate.content
+    buildspec = data.local_file.terraform_plan.content
     type      = "CODEPIPELINE"
   }
 
