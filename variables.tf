@@ -58,7 +58,7 @@ variable "project-tags" {
 #Use: tags = { Name = "${var.name_prefix}-lambda" }
 variable "name_prefix" {
   type    = string
-  default = "terraform"
+  default = "jmanzur-terraform"
 }
 
 # IAM Roles Name:

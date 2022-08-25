@@ -19,7 +19,7 @@ phases:
     - echo "[INFO] Executing terraform apply"
     - cd $CODEBUILD_SRC_DIR/project_templates
     - terraform init
-    - terraform workspace select $ENVIRONMENT
+    - terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
     - terraform apply -var-file=$ENVIRONMENT.tfvars -auto-approve
   post_build:
     commands:

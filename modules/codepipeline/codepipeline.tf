@@ -3,7 +3,7 @@ category: Possible values are Approval, Build, Deploy, Invoke, Source and Test.
 provider: Ref.: https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference.html
 */
 resource "aws_codepipeline" "tf_codepipeline" {
-  name     = "terraformf-pipeline"
+  name     = "terraform-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {

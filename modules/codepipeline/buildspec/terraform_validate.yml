@@ -19,7 +19,7 @@ phases:
     - echo "[INFO] Executing terraform validate"
     - cd $CODEBUILD_SRC_DIR/project_templates
     - terraform init
-    - terraform workspace select $ENVIRONMENT
+    - terraform workspace select $ENVIRONMENT || terraform workspace new $ENVIRONMENT
     - terraform validate
   post_build:
     commands:
