@@ -1,6 +1,8 @@
 #JManzur
 default.auto.tfvars
 *.terraform.lock.hcl
+*.infracost
+
 # Local .terraform directories
 **/.terraform/*
 
